@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,15 +23,18 @@ public class Main extends Canvas {
 	static TSPClass2 boop = new TSPClass2();
 
 	public static void main(String[] args) {
-		//boop.randomSearch(500);
-		boop.greedySearch(); 
+		boop.randomSearch(200);
+		//boop.greedySearch(); 
 		JFrame frame = new JFrame("My Drawing");
 
 		frame.setResizable(false);
 
 		Canvas canvas = new Main();
 
-		canvas.setSize(900, 900);
+		//canvas.setSize(900, 900);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dim = toolkit.getScreenSize();
+		canvas.setSize(dim.width,dim.height);
 		frame.add(canvas);
 		frame.pack();
 		frame.setVisible(true);
@@ -52,7 +56,12 @@ public class Main extends Canvas {
 			int x = (int) boop.getList().get(i).getXpos();
 			int y = (int) boop.getList().get(i).getYpos();
 			
-			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			g.fillOval((int) x, (int) y, 20, 20);
 			g.drawString(boop.getList().get(i).getName(), x + 2, y);
