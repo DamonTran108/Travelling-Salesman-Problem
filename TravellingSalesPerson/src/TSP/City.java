@@ -2,6 +2,7 @@ package TSP;
 
 public class City {
 
+	
 	private String name;
 	private double xPos;
 	private double yPos;
@@ -33,4 +34,6 @@ public class City {
 		this.yPos = newYPos;
 		return yPos;
 	}
+
+	  
 }
