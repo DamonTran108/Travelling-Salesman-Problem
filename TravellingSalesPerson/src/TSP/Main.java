@@ -25,9 +25,9 @@ public class Main extends Canvas {
 	static TSPClass tsp = new TSPClass();
 
 	public static void main(String[] args) {
-		// tsp.randomSearch(1000);
-		// tsp.gaSearch();
-		// tsp.greedySearch();
+		//tsp.randomSearch(100);
+		//tsp.gaSearch();
+		tsp.greedySearch();
 		JFrame frame = new JFrame("My Drawing");
 		frame.setResizable(false);
 
