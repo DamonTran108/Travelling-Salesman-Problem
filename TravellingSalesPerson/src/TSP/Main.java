@@ -22,12 +22,25 @@ import javax.swing.JPanel;
 import java.util.concurrent.TimeUnit;
 
 public class Main extends Canvas {
+	// Create Instance of TSP to initialise static arraylist and totalDistance
+	// variable, so the instance object is the same for every class that uses it
+	
 	static TSPClass tsp = new TSPClass();
+	
+	// rSearch Parameter - Iterations
+	static RandomSearch rSearch = new RandomSearch(1000);
+	static greedySearch gSearch = new greedySearch();
+
+	// geSearch parameters - Iterations, population, k , parents
+	static geneticSearch geSearch = new geneticSearch(100, 20, 5, 10);
 
 	public static void main(String[] args) {
-		//tsp.randomSearch(100);
-		//tsp.gaSearch();
-		tsp.greedySearch();
+
+		// rSearch.search();
+
+		// gSearch.search();
+		//geSearch.search();
+
 		JFrame frame = new JFrame("My Drawing");
 		frame.setResizable(false);
 
@@ -47,40 +60,40 @@ public class Main extends Canvas {
 
 		String distance = "";
 
-		for (int i = 0; i < tsp.getList().size(); i++) {
+		for (int i = 0; i < tsp.getRoute().size(); i++) {
 
-			int x = (int) tsp.getList().get(i).getXpos();
-			int y = (int) tsp.getList().get(i).getYpos();
+			int x = (int) tsp.getRoute().get(i).getXpos();
+			int y = (int) tsp.getRoute().get(i).getYpos();
 
 			g.fillOval((int) x, (int) y, 20, 20);
-			g.drawString(tsp.getList().get(i).getName(), x + 2, y);
+			g.drawString(tsp.getRoute().get(i).getName(), x + 2, y);
 
-			if (i < tsp.getList().size() - 1) {
+			if (i < tsp.getRoute().size() - 1) {
 				g.setColor(Color.BLUE);
-				g.drawLine((int) tsp.getList().get(i).getXpos() + 10, (int) tsp.getList().get(i).getYpos() + 10,
-						(int) tsp.getList().get(i + 1).getXpos() + 10, (int) tsp.getList().get(i + 1).getYpos() + 10);
+				g.drawLine((int) tsp.getRoute().get(i).getXpos() + 10, (int) tsp.getRoute().get(i).getYpos() + 10,
+						(int) tsp.getRoute().get(i + 1).getXpos() + 10, (int) tsp.getRoute().get(i + 1).getYpos() + 10);
 				g.setColor(Color.BLACK);
 				g.drawString("(" + i + ")", x - 10, y - 10);
 
-				distance = " " + tsp.calcDistance(tsp.getList().get(i), tsp.getList().get(i + 1));
+				distance = " " + tsp.calcDistance(tsp.getRoute().get(i), tsp.getRoute().get(i + 1));
 				g.drawString(distance,
-						(int) (((tsp.getList().get(i).getXpos() + tsp.getList().get(i + 1).getXpos()) / 2)),
-						(int) (((tsp.getList().get(i).getYpos() + tsp.getList().get(i + 1).getYpos()) / 2)));
+						(int) (((tsp.getRoute().get(i).getXpos() + tsp.getRoute().get(i + 1).getXpos()) / 2)),
+						(int) (((tsp.getRoute().get(i).getYpos() + tsp.getRoute().get(i + 1).getYpos()) / 2)));
 
 			} else {
 
-				distance = " " + tsp.calcDistance(tsp.getList().get(0), tsp.getList().get(tsp.getList().size() - 1));
+				distance = " " + tsp.calcDistance(tsp.getRoute().get(0), tsp.getRoute().get(tsp.getRoute().size() - 1));
 				g.setColor(Color.BLUE);
-				g.drawLine((int) tsp.getList().get(0).getXpos() + 10, (int) tsp.getList().get(0).getYpos() + 10,
-						(int) tsp.getList().get(tsp.getList().size() - 1).getXpos() + 10,
-						(int) tsp.getList().get(tsp.getList().size() - 1).getYpos() + 10);
+				g.drawLine((int) tsp.getRoute().get(0).getXpos() + 10, (int) tsp.getRoute().get(0).getYpos() + 10,
+						(int) tsp.getRoute().get(tsp.getRoute().size() - 1).getXpos() + 10,
+						(int) tsp.getRoute().get(tsp.getRoute().size() - 1).getYpos() + 10);
 				g.setColor(Color.BLACK);
 				g.drawString("(" + i + ")", x - 10, y - 10);
 				g.drawString(distance,
-						(int) (((tsp.getList().get(tsp.getList().size() - 1).getXpos() + tsp.getList().get(0).getXpos())
-								/ 2)),
-						(int) (((tsp.getList().get(tsp.getList().size() - 1).getYpos() + tsp.getList().get(0).getYpos())
-								/ 2)));
+						(int) (((tsp.getRoute().get(tsp.getRoute().size() - 1).getXpos()
+								+ tsp.getRoute().get(0).getXpos()) / 2)),
+						(int) (((tsp.getRoute().get(tsp.getRoute().size() - 1).getYpos()
+								+ tsp.getRoute().get(0).getYpos()) / 2)));
 
 			}
 
